@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
 namespace ahbsd.lib.ExceptionHandable
 {
@@ -80,6 +79,7 @@ namespace ahbsd.lib.ExceptionHandable
         public void AddException(object sender, Exception e)
         {
             Cs.AddException(sender, e);
+            OnExceptionAdded?.Invoke(sender, new ExceptionEventArgs(e));
         }
         /// <summary>
         /// Adds an Exception in an <see cref="ExceptionEventArgs"/> and the sending object.
@@ -107,6 +107,7 @@ namespace ahbsd.lib.ExceptionHandable
         public void Add(object key, IDictionary<DateTime, Exception> value)
         {
             EventArgs<object> sea;
+            ExceptionEventArgs e;
 
             if (!ContainsKey(key))
             {
@@ -119,7 +120,9 @@ namespace ahbsd.lib.ExceptionHandable
             {
                 foreach (KeyValuePair<DateTime, Exception> item in value)
                 {
+                    e = new ExceptionEventArgs(item.Value);
                     Cs[key].Add(item.Key, item.Value);
+                    OnExceptionAdded?.Invoke(key, e);
                 }
             }
             
@@ -163,6 +166,7 @@ namespace ahbsd.lib.ExceptionHandable
         public void Add(KeyValuePair<object, IDictionary<DateTime, Exception>> item)
         {
             EventArgs<object> sea;
+            ExceptionEventArgs e;
 
             if (!ContainsKey(item.Key))
             {
@@ -174,7 +178,9 @@ namespace ahbsd.lib.ExceptionHandable
             {
                 foreach (KeyValuePair<DateTime,Exception> i in item.Value)
                 {
+                    e = new ExceptionEventArgs(i.Value);
                     Cs[item.Key].Add(i.Key, i.Value);
+                    OnExceptionAdded?.Invoke(item.Key, e);
                 }
             }
         }

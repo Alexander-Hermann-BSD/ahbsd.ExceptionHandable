@@ -66,11 +66,21 @@ namespace ahbsd.lib.ExceptionHandable
             CaughtExceptions.OnExceptionAdded += CaughtExceptions_OnExceptionAdded;
         }
 
+        /// <summary>
+        /// Wird aufgerufen, wenn eine neue Exception hinzugefügt wurde.
+        /// </summary>
+        /// <param name="sender">Das sendende Objekt.</param>
+        /// <param name="e">Die Event-Argumente mit der neuen Exception.</param>
         private void CaughtExceptions_OnExceptionAdded(object sender, ExceptionEventArgs e)
         {
             ExceptionAdded?.Invoke(sender, e);
         }
 
+        /// <summary>
+        /// Wird aufgerufen, wenn ein Sender hinzugefügt wurde.
+        /// </summary>
+        /// <param name="sender">Das Sendende Objekt.</param>
+        /// <param name="e">Das Event-Argument mit dem neuen Sender.</param>
         private void CaughtExceptions_OnSenderAdded(object sender, EventArgs<object> e)
         {
             SenderAdded?.Invoke(CaughtExceptions, new EventArgs<object>(sender));
@@ -209,6 +219,7 @@ namespace ahbsd.lib.ExceptionHandable
             Exception ex = e.Value;
             DateTime now = DateTime.Now;
             bool IsLogNotEmpty = !ExceptionEventLog.Log.Trim().Equals(string.Empty);
+            OnExceptionAdded?.Invoke(sender, e);
 
             if (CaughtExceptions.Keys.Contains(sender))
             {
@@ -261,6 +272,7 @@ namespace ahbsd.lib.ExceptionHandable
             {
                 CaughtExceptions[this].Add(DateTime.Now, ex);
                 ExceptionAdded?.Invoke(this, exe);
+                OnExceptionAdded?.Invoke(this, exe);
             }
             else
             {
@@ -270,70 +282,136 @@ namespace ahbsd.lib.ExceptionHandable
                 CaughtExceptions.Add(this, nd);
                 SenderAdded?.Invoke(this, eo);
                 ExceptionAdded?.Invoke(this, exe);
+                OnExceptionAdded?.Invoke(this, exe);
             }
         }
 
+        /// <summary>
+        /// Fügt Exception-Event-Argumente hinzu.
+        /// </summary>
+        /// <param name="easea">Exception-Event-Argumente</param>
         public void AddExceptionEventArgs(ExceptionAndSenderEventArgs easea)
         {
-            throw new NotImplementedException();
+            if (CaughtExceptions.Keys.Contains(easea.Sender))
+            {
+                CaughtExceptions[easea.Sender].Add(DateTime.Now, easea.Value);
+            }
+            else
+            {
+                Dictionary<DateTime, Exception> nd = new Dictionary<DateTime, Exception>();
+                EventArgs<object> eo = new EventArgs<object>(easea.Sender);
+                nd.Add(DateTime.Now, easea.Value);
+                CaughtExceptions.Add(easea.Sender, nd);
+                SenderAdded?.Invoke(easea.Sender, eo);
+            }
+
+            ExceptionAdded?.Invoke(easea.Sender, easea);
+            OnExceptionAdded?.Invoke(easea.Sender, easea);
         }
 
+        /// <summary>
+        /// Fügt einen Sender und ein Dictionary mit gefallenen Exceptions hinzu.
+        /// </summary>
+        /// <param name="key">Sendendes Objekt</param>
+        /// <param name="value">Dictionary mit Exceptions.</param>
         public void Add(object key, IDictionary<DateTime, Exception> value)
         {
-            throw new NotImplementedException();
+            ExceptionEventArgs e;
+            EventArgs<object> eas;
+
+            if (CaughtExceptions.Keys.Contains(key))
+            {
+                foreach (KeyValuePair<DateTime, Exception> item in value)
+                {
+                    if (!CaughtExceptions[key].Keys.Contains(item.Key))
+                    {
+                        e = new ExceptionEventArgs(item.Value);
+                        CaughtExceptions[key].Add(item);
+                        ExceptionAdded?.Invoke(key, e);
+                        OnExceptionAdded?.Invoke(key, e);
+                    }
+                }
+            }
+            else
+            {
+                eas = new EventArgs<object>(key);
+                CaughtExceptions.Add(key, value);
+                SenderAdded?.Invoke(key, eas);
+                OnSenderAdded?.Invoke(key, eas);
+
+                foreach (var item in value)
+                {
+                    e = new ExceptionEventArgs(item.Value);
+                    ExceptionAdded?.Invoke(key, e);
+                    OnExceptionAdded?.Invoke(key, e);
+                }
+            }
         }
 
-        public bool ContainsKey(object key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(object key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool TryGetValue(object key, out IDictionary<DateTime, Exception> value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Add(KeyValuePair<object, IDictionary<DateTime, Exception>> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(KeyValuePair<object, IDictionary<DateTime, Exception>> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(KeyValuePair<object, IDictionary<DateTime, Exception>>[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(KeyValuePair<object, IDictionary<DateTime, Exception>> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<KeyValuePair<object, IDictionary<DateTime, Exception>>> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// Gibt zurück, ob der Schlüssel vorhanden ist.
+        /// </summary>
+        /// <param name="key">Der Schlüssel.</param>
+        /// <returns><c>TRUE</c>, falls vorhanden, ansonsten <c>FALSE</c>.</returns>
+        public bool ContainsKey(object key) => CaughtExceptions.Keys.Contains(key);
+        /// <summary>
+        /// Versucht den Schlüssel und seinen Wert zu entfernen.
+        /// </summary>
+        /// <param name="key">Der Schlüssel.</param>
+        /// <returns><c>TRUE</c> falls erfolgreich, ansonsten <c>FALSE</c>.</returns>
+        public bool Remove(object key) => CaughtExceptions.Remove(key);
+        /// <summary>
+        /// Versucht den Wert eines bestimmten Schlüssels auszugeben.
+        /// </summary>
+        /// <param name="key">Der Bestimmte Schlüssel.</param>
+        /// <param name="value">Der Wert des Bestimmten Schlüssels.</param>
+        /// <returns>Bei Erfolg <c>TRUE</c>, ansonsten <c>FALSE</c>.</returns>
+        public bool TryGetValue(object key, out IDictionary<DateTime, Exception> value) => CaughtExceptions.TryGetValue(key, out value);
+        /// <summary>
+        /// Fügt Daten hinzu.
+        /// </summary>
+        /// <param name="item">Hinzuzufügende Daten.</param>
+        public void Add(KeyValuePair<object, IDictionary<DateTime, Exception>> item) => CaughtExceptions.Add(item);
+        /// <summary>
+        /// Löscht den gesamten Inhalt.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Falls da irgendwas nicht unterstützt wird.</exception>
+        public void Clear() => CaughtExceptions.Clear();
+        /// <summary>
+        /// Gibt zurück, ob eine Zusammensetzung aus bestimmten Daten vorhanden sind.
+        /// </summary>
+        /// <param name="item">Eine Zusammensetzung aus bestimmten Daten.</param>
+        /// <returns><c>TRUE</c> bei Erfolg, ansonsten <c>FALSE</c>.</returns>
+        public bool Contains(KeyValuePair<object, IDictionary<DateTime, Exception>> item) => CaughtExceptions.Contains(item);
+        /// <summary>
+        /// Kopiert Bestimmte Daten ab einem bestimmten Index hinzu.
+        /// </summary>
+        /// <param name="array">Bestimmte Daten.</param>
+        /// <param name="arrayIndex">Bestimmter Index.</param>
+        public void CopyTo(KeyValuePair<object, IDictionary<DateTime, Exception>>[] array, int arrayIndex) => CaughtExceptions.CopyTo(array, arrayIndex);
+        /// <summary>
+        /// Entfernt einen bestimmten Schlüssel mit Inhalt.
+        /// </summary>
+        /// <param name="item">Der Bestimmte Schlüssel und sein Inhalt.</param>
+        /// <returns><c>TRUE</c> bei Erfolg, ansonsten <c>FALSE</c>.</returns>
+        public bool Remove(KeyValuePair<object, IDictionary<DateTime, Exception>> item) => CaughtExceptions.Remove(item);
+        /// <summary>
+        /// Gibt den Enumerator für die enthaltenen Werte Zurück.
+        /// </summary>
+        /// <returns>Der Enumerator für die enthaltenen Werte.</returns>
+        public IEnumerator<KeyValuePair<object, IDictionary<DateTime, Exception>>> GetEnumerator() => CaughtExceptions.GetEnumerator();
+        /// <summary>
+        /// Gibt den Enumerator für die enthaltenen Werte Zurück.
+        /// </summary>
+        /// <returns>Der Enumerator für die enthaltenen Werte.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => CaughtExceptions.GetEnumerator();
         #endregion
 
+        /// <summary>
+        /// Tritt auf, wenn ein Eintrag ins Event-Log geschrieben wurde.
+        /// </summary>
+        /// <param name="sender">Sendendes Objekt.</param>
+        /// <param name="e">Event-Argumente bzgl. des geschriebenen Eintrags ins Event-Log.</param>
         private void ExceptionEventLog_EntryWritten(object sender, EntryWrittenEventArgs e)
         {
             EntryWritten?.Invoke(sender, e);
@@ -343,23 +421,37 @@ namespace ahbsd.lib.ExceptionHandable
         /// Gibt den Inhalt als Form zurück.
         /// </summary>
         /// <value>Der Inhalt als Form.</value>
-        public Form Details
+        public Form Details => new FrmCaughtExceptions(CaughtExceptions);
+        /// <summary>
+        /// Gibt alle Schlüssel zurück.
+        /// </summary>
+        /// <value>Alle Schlüssel.</value>
+        public ICollection<object> Keys => CaughtExceptions.Keys;
+        /// <summary>
+        /// Gibt alle Werte zurück.
+        /// </summary>
+        /// <value>Alle Werte.</value>
+        public ICollection<IDictionary<DateTime, Exception>> Values => CaughtExceptions.Values;
+        /// <summary>
+        /// Gibt die Anzahl aller Quellen zurück.
+        /// </summary>
+        /// <value>Die Anzahl aller Quellen.</value>
+        public int Count => CaughtExceptions.Count;
+        /// <summary>
+        /// Gibt zurück, ob der Inhalt nur gelesen werden kann.
+        /// </summary>
+        /// <value><c>TRUE</c> wenn der Inhalt nur gelesen werden kann, ansonsten <c>FALSE</c>.</value>
+        public bool IsReadOnly => CaughtExceptions.IsReadOnly;
+
+        /// <summary>
+        /// Gibt die Liste der gefangenen Exceptions eines bestimmten Senders zurück
+        /// </summary>
+        /// <param name="key">Der bestimmte Sender</param>
+        /// <returns>Die Liste der gefangenen Exceptions eines bestimmten Senders.</returns>
+        public IDictionary<DateTime, Exception> this[object key]
         {
-            get
-            {
-                FrmCaughtExceptions result = new FrmCaughtExceptions(CaughtExceptions);
-                return result;
-            }
+            get => CaughtExceptions[key];
+            set { } // Absichtlich ohne Funktion.
         }
-
-        public ICollection<object> Keys => throw new NotImplementedException();
-
-        public ICollection<IDictionary<DateTime, Exception>> Values => throw new NotImplementedException();
-
-        public int Count => throw new NotImplementedException();
-
-        public bool IsReadOnly => throw new NotImplementedException();
-
-        public IDictionary<DateTime, Exception> this[object key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }

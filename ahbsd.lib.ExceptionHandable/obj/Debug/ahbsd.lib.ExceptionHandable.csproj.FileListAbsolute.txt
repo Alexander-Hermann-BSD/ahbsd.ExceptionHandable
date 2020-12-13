@@ -4,3 +4,9 @@
 /Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.csproj.CoreCompileInputs.cache
 /Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.dll
 /Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.pdb
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/bin/Debug/ahbsd.lib.ExceptionHandable.xml
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/bin/Debug/ahbsd.lib.ExceptionHandable.dll
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/bin/Debug/ahbsd.lib.ExceptionHandable.pdb
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.csproj.CoreCompileInputs.cache
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.dll
+/Users/alexanderhermann/Projects/ahbsd.lib.ExceptionHandable2/ahbsd.lib.ExceptionHandable/obj/Debug/ahbsd.lib.ExceptionHandable.pdb

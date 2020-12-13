@@ -324,6 +324,20 @@
             </summary>
             <param name="container">Kontainer, der dieses Objekt enthält.</param>
         </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.CaughtExceptions_OnExceptionAdded(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs)">
+            <summary>
+            Wird aufgerufen, wenn eine neue Exception hinzugefügt wurde.
+            </summary>
+            <param name="sender">Das sendende Objekt.</param>
+            <param name="e">Die Event-Argumente mit der neuen Exception.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.CaughtExceptions_OnSenderAdded(System.Object,ahbsd.lib.EventArgs{System.Object})">
+            <summary>
+            Wird aufgerufen, wenn ein Sender hinzugefügt wurde.
+            </summary>
+            <param name="sender">Das Sendende Objekt.</param>
+            <param name="e">Das Event-Argument mit dem neuen Sender.</param>
+        </member>
         <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.SenderAdded">
             <summary>
             Tritt auf, wenn ein neuer Sender hinzugefügt wurde.
@@ -426,11 +440,129 @@
             </summary>
             <param name="ex">Gefangenene Exception</param>
         </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.AddExceptionEventArgs(ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs)">
+            <summary>
+            Fügt Exception-Event-Argumente hinzu.
+            </summary>
+            <param name="easea">Exception-Event-Argumente</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Add(System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception})">
+            <summary>
+            Fügt einen Sender und ein Dictionary mit gefallenen Exceptions hinzu.
+            </summary>
+            <param name="key">Sendendes Objekt</param>
+            <param name="value">Dictionary mit Exceptions.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.ContainsKey(System.Object)">
+            <summary>
+            Gibt zurück, ob der Schlüssel vorhanden ist.
+            </summary>
+            <param name="key">Der Schlüssel.</param>
+            <returns><c>TRUE</c>, falls vorhanden, ansonsten <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Remove(System.Object)">
+            <summary>
+            Versucht den Schlüssel und seinen Wert zu entfernen.
+            </summary>
+            <param name="key">Der Schlüssel.</param>
+            <returns><c>TRUE</c> falls erfolgreich, ansonsten <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.TryGetValue(System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}@)">
+            <summary>
+            Versucht den Wert eines bestimmten Schlüssels auszugeben.
+            </summary>
+            <param name="key">Der Bestimmte Schlüssel.</param>
+            <param name="value">Der Wert des Bestimmten Schlüssels.</param>
+            <returns>Bei Erfolg <c>TRUE</c>, ansonsten <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Add(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Fügt Daten hinzu.
+            </summary>
+            <param name="item">Hinzuzufügende Daten.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Clear">
+            <summary>
+            Löscht den gesamten Inhalt.
+            </summary>
+            <exception cref="T:System.NotSupportedException">Falls da irgendwas nicht unterstützt wird.</exception>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Contains(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Gibt zurück, ob eine Zusammensetzung aus bestimmten Daten vorhanden sind.
+            </summary>
+            <param name="item">Eine Zusammensetzung aus bestimmten Daten.</param>
+            <returns><c>TRUE</c> bei Erfolg, ansonsten <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.CopyTo(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}}[],System.Int32)">
+            <summary>
+            Kopiert Bestimmte Daten ab einem bestimmten Index hinzu.
+            </summary>
+            <param name="array">Bestimmte Daten.</param>
+            <param name="arrayIndex">Bestimmter Index.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Remove(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Entfernt einen bestimmten Schlüssel mit Inhalt.
+            </summary>
+            <param name="item">Der Bestimmte Schlüssel und sein Inhalt.</param>
+            <returns><c>TRUE</c> bei Erfolg, ansonsten <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.GetEnumerator">
+            <summary>
+            Gibt den Enumerator für die enthaltenen Werte Zurück.
+            </summary>
+            <returns>Der Enumerator für die enthaltenen Werte.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gibt den Enumerator für die enthaltenen Werte Zurück.
+            </summary>
+            <returns>Der Enumerator für die enthaltenen Werte.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.ExceptionEventLog_EntryWritten(System.Object,System.Diagnostics.EntryWrittenEventArgs)">
+            <summary>
+            Tritt auf, wenn ein Eintrag ins Event-Log geschrieben wurde.
+            </summary>
+            <param name="sender">Sendendes Objekt.</param>
+            <param name="e">Event-Argumente bzgl. des geschriebenen Eintrags ins Event-Log.</param>
+        </member>
         <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Details">
             <summary>
             Gibt den Inhalt als Form zurück.
             </summary>
             <value>Der Inhalt als Form.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Keys">
+            <summary>
+            Gibt alle Schlüssel zurück.
+            </summary>
+            <value>Alle Schlüssel.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Values">
+            <summary>
+            Gibt alle Werte zurück.
+            </summary>
+            <value>Alle Werte.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Count">
+            <summary>
+            Gibt die Anzahl aller Quellen zurück.
+            </summary>
+            <value>Die Anzahl aller Quellen.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.IsReadOnly">
+            <summary>
+            Gibt zurück, ob der Inhalt nur gelesen werden kann.
+            </summary>
+            <value><c>TRUE</c> wenn der Inhalt nur gelesen werden kann, ansonsten <c>FALSE</c>.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Item(System.Object)">
+            <summary>
+            Gibt die Liste der gefangenen Exceptions eines bestimmten Senders zurück
+            </summary>
+            <param name="key">Der bestimmte Sender</param>
+            <returns>Die Liste der gefangenen Exceptions eines bestimmten Senders.</returns>
         </member>
         <member name="F:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.components">
             <summary>
