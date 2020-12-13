@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED4D4B03-4444-40E5-B214-48C1EFF80A60}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ahbsd.lib.ExceptionHandable</RootNamespace>
+    <AssemblyName>ahbsd.lib.ExceptionHandable</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <Copyright>GPL</Copyright>
+    <Owners>Alexander Hermann</Owners>
+    <Title>Exception handable library</Title>
+    <CodePage>65001</CodePage>
+    <PackOnBuild>true</PackOnBuild>
+    <PackageVersion>1.0</PackageVersion>
+    <Authors>A. Hermann</Authors>
+    <Description>A library for exception handling.</Description>
+    <ReleaseVersion>1.1</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ahbsd.lib.ExceptionHandable.xml</DocumentationFile>
+    <ConsolePause>false</ConsolePause>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ahbsd.lib.ExceptionHandable.xml</DocumentationFile>
+    <ConsolePause>false</ConsolePause>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IExceptionHandable.cs">
+      <IncludeInPackage>true</IncludeInPackage>
+    </Compile>
+    <Compile Include="ICaughtExceptions.cs">
+      <IncludeInPackage>true</IncludeInPackage>
+    </Compile>
+    <Compile Include="GenericEventArgs.cs">
+      <IncludeInPackage>true</IncludeInPackage>
+    </Compile>
+    <Compile Include="IChangeEventArgs.cs" />
+    <Compile Include="CaughtExceptionComponent.cs" />
+    <Compile Include="CaughtExceptionsComponent.cs" />
+    <Compile Include="CaughtExceptionsComponent.Designer.cs" />
+    <Compile Include="ExceptionControl.cs" />
+    <Compile Include="ExceptionControl.Designer.cs" />
+    <Compile Include="ExceptionHandableAttribute.cs" />
+    <Compile Include="ExceptionSenderControl.cs" />
+    <Compile Include="ExceptionSenderControl.Designer.cs" />
+    <Compile Include="FrmCaughtExceptions.cs" />
+    <Compile Include="FrmCaughtExceptions.Designer.cs" />
+    <Compile Include="IExceptionControl.cs" />
+    <Compile Include="IExceptionSenderControl.cs" />
+    <Compile Include="ITypeException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CaughtExceptionsComponent.resx" />
+    <None Include="ExceptionControl.resx" />
+    <None Include="ExceptionSenderControl.resx" />
+    <None Include="FrmCaughtExceptions.resx" />
+    <None Include="Library.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

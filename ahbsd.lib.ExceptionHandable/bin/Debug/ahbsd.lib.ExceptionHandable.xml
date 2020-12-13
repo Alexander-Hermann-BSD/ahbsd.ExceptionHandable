@@ -1,0 +1,986 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ahbsd.lib.ExceptionHandable</name>
+    </assembly>
+    <members>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionHandable">
+            <summary>
+            Interface for exception handlings
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionHandable.CaughtExceptions">
+            <summary>
+            Returns the caught exceptions.
+            </summary>
+            <value>The caught exceptions.</value>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.IExceptionHandable.OnException">
+            <summary>
+            Occures, if an Exception happens.
+            </summary>
+            <example>
+            ...
+            try
+            {
+                ...
+            }
+            catch (Exception ex)
+            {
+                OnException?.Invoke(this, new ExceptionEventArgs(ex));
+            }
+            ...
+            </example>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionHandableComponent">
+            <summary>
+            Interface for Exception handable components.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ICaughtExceptions">
+            <summary>
+            Interface for a way to hold caught exceptions
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ICaughtExceptions.AddException(System.Object,System.Exception)">
+            <summary>
+            Adds a caught exception and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The caught Exception.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ICaughtExceptions.AddExceptionEventArgs(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs)">
+            <summary>
+            Adds an Exception in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionEventArgs"/> and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="eea">The caught exception in EventArgs.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ICaughtExceptions.AddExceptionEventArgs(ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs)">
+            <summary>
+            Adds an exception and the sending object in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs"/>.
+            </summary>
+            <param name="easea">The exception and the sending object.</param>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.ICaughtExceptions.OnSenderAdded">
+            <summary>
+            Occures, if a new sender is added.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.ICaughtExceptions.OnExceptionAdded">
+            <summary>
+            Occures, if a new <see cref="T:System.Exception"/> is added.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ICaughtExceptionsComponent">
+            <summary>
+            Interface for a <see cref="T:ahbsd.lib.ExceptionHandable.ICaughtExceptions"/>-Component.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionEventArgs">
+            <summary>
+            Event argument, that contains a fallen Exception
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionEventArgs.#ctor(System.Exception)">
+            <summary>
+            Constructure with a caught exception.
+            </summary>
+            <param name="e">The caught exception</param>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs">
+            <summary>
+            Event argument with a caught exception and the sending object.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs.Sender">
+            <summary>
+            Returns the sending object.
+            </summary>
+            <value>The sending object.</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs.#ctor(System.Object,System.Exception)">
+            <summary>
+            Constructor with the sending object and the caught exception.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The caught exception.</param>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.CaughtExceptions">
+            <summary>
+            Caught Exceptions
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptions.AddException(System.Object,System.Exception)">
+            <summary>
+            Adds a caught exception and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The caught Exception.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptions.AddExceptionEventArgs(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs)">
+            <summary>
+            Adds an Exception in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionEventArgs"/> and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="eea">The caught exception in EventArgs.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptions.AddExceptionEventArgs(ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs)">
+            <summary>
+            Adds an exception and the sending object in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs"/>.
+            </summary>
+            <param name="easea">The exception and the sending object.</param>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptions.OnSenderAdded">
+            <summary>
+            Occures, if a new sender is added.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptions.OnExceptionAdded">
+            <summary>
+            Occures, if a new <see cref="T:System.Exception"/> is added.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent">
+            <summary>
+            Component for Exception Handling
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.#ctor">
+            <summary>
+            Constructor without parameters
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Constructor with an owning container.
+            </summary>
+            <param name="container">An owning container.</param>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Cs">
+            <summary>
+            Inner CaughtExceptions
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Keys">
+            <summary>
+            Keys
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Values">
+            <summary>
+            Values
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Count">
+            <summary>
+            Amount of <see cref="T:System.Collections.Generic.KeyValuePair`2"/>s.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.IsReadOnly">
+            <summary>
+            Gives back, if it's <c>readonly</c>.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Item(System.Object)">
+            <summary>
+            Gives back the values of a key or sets the value of a key.
+            </summary>
+            <param name="key">a key</param>
+            <returns>an <see cref="T:System.Collections.Generic.IDictionary`2"/>-interface for the given key.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.AddException(System.Object,System.Exception)">
+            <summary>
+            Adds a caught exception and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The caught Exception.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.AddExceptionEventArgs(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs)">
+            <summary>
+            Adds an Exception in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionEventArgs"/> and the sending object.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="eea">The caught exception in EventArgs.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.AddExceptionEventArgs(ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs)">
+            <summary>
+            Adds an exception and the sending object in an <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionAndSenderEventArgs"/>.
+            </summary>
+            <param name="easea">The exception and the sending object.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Add(System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception})">
+            <summary>
+            Adds an <see cref="T:System.Collections.Generic.IDictionary`2"/> to a key.
+            </summary>
+            <param name="key">a key</param>
+            <param name="value">a <see cref="T:System.Collections.Generic.IDictionary`2"/></param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.ContainsKey(System.Object)">
+            <summary>
+            Gives back, if a given key exists in this component.
+            </summary>
+            <param name="key">the given key</param>
+            <returns><c>TRUE</c> if the key exists, otherwise <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Remove(System.Object)">
+            <summary>
+            Removes a given key (and it's values).
+            </summary>
+            <param name="key">the given key.</param>
+            <returns><c>TRUE</c> if the key exists, otherwise <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.TryGetValue(System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}@)">
+            <summary>
+            Trys to get a value of a key.
+            </summary>
+            <param name="key">the key</param>
+            <param name="value">the value</param>
+            <returns><c>TRUE</c> if the key exists, otherwise <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Add(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Adds a given <see cref="T:System.Collections.Generic.KeyValuePair`2"/>.
+            </summary>
+            <param name="item">The given <see cref="T:System.Collections.Generic.KeyValuePair`2"/>.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Clear">
+            <summary>
+            Clears the inner<see cref="T:ahbsd.lib.ExceptionHandable.ICaughtExceptions"/>.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Contains(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Returns if a specific item is contained.
+            </summary>
+            <param name="item">The specific item.</param>
+            <returns><c>TRUE</c> if the item is contained, otherwise <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.CopyTo(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}}[],System.Int32)">
+            <summary>
+            Copies the inner <see cref="T:ahbsd.lib.ExceptionHandable.ICaughtExceptions"/> to a specific array.
+            </summary>
+            <param name="array">The specific array.</param>
+            <param name="arrayIndex">The array index, where to start.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.Remove(System.Collections.Generic.KeyValuePair{System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception}})">
+            <summary>
+            Removes a specific item.
+            </summary>
+            <param name="item">The specific item to remove.</param>
+            <returns><c>TRUE</c> if item existed, othewise <c>FALSE</c>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.GetEnumerator">
+            <summary>
+            Gets an <see cref="T:System.Collections.Generic.IEnumerator`1"/>.
+            </summary>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/>.</returns>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets an <see cref="T:System.Collections.IEnumerator"/>.
+            </summary>
+            <returns>An <see cref="T:System.Collections.IEnumerator"/>.</returns>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.OnSenderAdded">
+            <summary>
+            Occures, if a new sender is added.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionComponent.OnExceptionAdded">
+            <summary>
+            Occures, if a new <see cref="T:System.Exception"/> is added.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent">
+            <summary>
+            Komponente für gefangene Exceptions.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.InInitialization">
+            <summary>
+            Gibt zurück, ob sich das Objekt gerade im Initialisierungsmodus befindet.
+            </summary>
+            <value>Befindet sich das Objekt gerade im Initialisierungsmodus?</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.BeginInit">
+            <summary>
+            Signalisiert dem Objekt den Start der Initialisierung.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.EndInit">
+            <summary>
+            Signalisiert dem Objekt den Abschluss der Initialisierung.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.#ctor">
+            <summary>
+            Konstruktor ohne Parameter
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Konstruktor mit Angabe eines Kontainers.
+            </summary>
+            <param name="container">Kontainer, der dieses Objekt enthält.</param>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.SenderAdded">
+            <summary>
+            Tritt auf, wenn ein neuer Sender hinzugefügt wurde.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.ExceptionAdded">
+            <summary>
+            Tritt auf, wenn eine neue Exception hinzugefügt wurde.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.EntryWritten">
+            <summary>
+            Tritt beim Schreiben eines Eintrags in das Ereignisprotokoll auf dem lokalen Computer ein.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.OnSenderAdded">
+            <summary>
+            Tritt auf, wenn ein neuer Sender hinzugefügt wurde.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.OnExceptionAdded">
+            <summary>
+            Occures, if a new <see cref="T:System.Exception"/> is added.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.CaughtExceptions">
+            <summary>
+            Gibt die gefangenen Exceptions zurück oder setzt sie.
+            </summary>
+            <value>Die gefangenen Exceptions</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.EnableLogentry">
+            <summary>
+            Setz oder gibt zurück, ob Logeinträge gesetzt werden sollen.
+            </summary>
+            <value>Sollen Logeinträge gesetzt werden?</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.EnableRaisingEvents">
+            <summary>
+            Setzt oder gibt zurück, ob das <see cref="T:System.Diagnostics.EventLog"/> <see cref="E:System.Diagnostics.EventLog.EntryWritten"/> Event-Benachrichtigungen empfängt.
+            </summary>
+            <value>Soll das <see cref="T:System.Diagnostics.EventLog"/> <see cref="E:System.Diagnostics.EventLog.EntryWritten"/> Event-Benachrichtigungen empfangen?</value>
+            <exception cref="T:System.InvalidOperationException">Das Ereignisprotokoll wird auf einem Remotecomputer gespeichert.</exception>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Entries">
+            <summary>
+            Ruft den Inhalt des Ereignisprotokolls ab.
+            </summary>
+            <value>Der Inhalt des Ereignisprotokolls.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Log">
+            <summary>
+            Ruft den Namen des Protokolls ab, aus dem gelesen bzw. in das geschrieben werden soll, oder legt diesen fest.
+            </summary>
+            <value>
+            Der Name des Protokolls.
+            Dies kann das Anwendungs-, das System- bzw. das Sicherheitsprotokoll oder ein benutzerdefinierter Protokollname sein.
+            Der Standardwert ist eine leere Zeichenfolge ("").
+            </value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.LogDisplayName">
+            <summary>
+            Ruft den angezeigten Namen des Ereignisprotokolls ab.
+            </summary>
+            <value>Ein Name, der das Ereignisprotokoll in der Ereignisanzeige des Systems darstellt.</value>
+            <exception cref="T:System.InvalidOperationException">Das angegebene <see cref="P:System.Diagnostics.EventLog.Log"/> ist in der Registrierung für diesen Computer nicht vorhanden.</exception>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Source">
+            <summary>
+            Ruft den zu registrierenden Namen der Quelle ab, die zum Schreiben in das Ereignisprotokoll verwendet werden soll, oder legt diesen fest.
+            </summary>
+            <value>Der Name, der im Ereignisprotokoll als Quelle für Einträge registriert ist.Der Standardwert ist eine leere Zeichenfolge ("").</value>
+            <exception cref="T:System.ArgumentException">Der Quellenname führt dazu, dass der Registrierungsschlüsselpfad länger als 254 Zeichen ist.</exception>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.AddExceptionEventArgs(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs)">
+            <summary>
+            Fügt eine gefangene Exception von einem bestimmten Objekt hinzu.
+            </summary>
+            <param name="sender">Sendendes Objekt</param>
+            <param name="e">Event-Argumente mit einer gefangenen Exception</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.AddExceptionEventArgs(System.Object,ahbsd.lib.ExceptionHandable.ExceptionEventArgs,System.Boolean)">
+            <summary>
+            Fügt eine gefangene Exception von einem bestimmten Objekt hinzu. 
+            </summary>
+            <param name="sender">Sendendes Objekt</param>
+            <param name="e">Event-Argumente mit einer gefangenen Exception</param>
+            <param name="writeToLogentry">Soll versucht werden in das Logbuch einzutragen?</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.AddException(System.Object,System.Exception)">
+            <summary>
+            Fügt eine gefangene Exception von einem bestimmten Objekt hinzu.
+            </summary>
+            <param name="sender">Sendendes Objekt</param>
+            <param name="ex">Gefangenene Exception</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.AddException(System.Exception)">
+            <summary>
+            Fügt eine gefangene Exception hinzu.
+            </summary>
+            <param name="ex">Gefangenene Exception</param>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Details">
+            <summary>
+            Gibt den Inhalt als Form zurück.
+            </summary>
+            <value>Der Inhalt als Form.</value>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.components">
+            <summary>
+            Erforderliche Designervariable.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.Dispose(System.Boolean)">
+            <summary> 
+            Verwendete Ressourcen bereinigen.
+            </summary>
+            <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.CaughtExceptionsComponent.InitializeComponent">
+            <summary>
+            Erforderliche Methode für die Designerunterstützung.
+            Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionControl">
+            <summary>
+            Control, das eine Exception mit dem dazugehörigen Datum anzeigt, so wie den dazugehörigen Sender beinhaltet.
+            </summary>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionControl.ecNr">
+            <summary>
+            Anzahl der vorhandenen <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionControl"/>s.
+            </summary>
+            <remarks>Wird für die Automatische Namensgebung benötigt.</remarks>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionControl.#cctor">
+            <summary>
+            Statischer Konstruktor.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionControl.#ctor">
+            <summary>
+            Konstruktor ohne Parameter
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionControl.#ctor(System.Object,System.Collections.Generic.KeyValuePair{System.DateTime,System.Exception})">
+            <summary>
+            Konstruktor mit Angabe des Senders und der Exception incl. Auftritt-Zeit.
+            </summary>
+            <param name="sender">Sendendes Objekt</param>
+            <param name="val">Exception incl. Auftritt-Zeit</param>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionControl.Value">
+            <summary>
+            Gibt die Exception und die Auftritt-Zeit zurück.
+            </summary>
+            <value>Die Exception und die Auftritt-Zeit.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionControl.Sender">
+            <summary>
+            Gibt den Sender zurück.
+            </summary>
+            <value>Der Sender</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionControl.Details">
+            <summary>
+            Gibt die Textbox mit den Details zurück.
+            </summary>
+            <value>Die Textbox mit den Details.</value>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionControl.components">
+            <summary> 
+            Erforderliche Designervariable.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionControl.Dispose(System.Boolean)">
+            <summary> 
+            Verwendete Ressourcen bereinigen.
+            </summary>
+            <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionControl.InitializeComponent">
+            <summary> 
+            Erforderliche Methode für die Designerunterstützung. 
+            Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionHandableAttribute">
+            <summary>
+            Attribute für ExceptionHandable Klassen
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionHandableAttribute.ExceptionType">
+            <summary>
+            Gibt den Exception-Typ zurück.
+            </summary>
+            <value>Der Exception-Typ</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionHandableAttribute.#ctor">
+            <summary>
+            Konstruktor ohne Parameter
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionHandableAttribute.#ctor(System.Exception)">
+            <summary>
+            Konstruktor mit Angabe einer Exeption
+            </summary>
+            <param name="e">Zu überprüfende Exception</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionHandableAttribute.#ctor(System.Type)">
+            <summary>
+            Konstruktor mit Angabe eines Types
+            </summary>
+            <param name="et">Type</param>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionType`1">
+            <summary>
+            Interface um einen bestimmten Exception-Type zurück zu geben.
+            </summary>
+            <typeparam name="ET">Gewählter Exception-Typ</typeparam>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionType`1.ExceptionType">
+            <summary>
+            Gibt den Exception-Typ zurück.
+            </summary>
+            <value>Der Exception-Typ</value>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionType">
+            <summary>
+            Interface um einen bestimmten Exception-Type zurück zu geben.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionTyp`1">
+            <summary>
+            Klasse, die den Typ einer Exception zurück gibt.
+            </summary>
+            <typeparam name="ET">Gewählter Exception-Typ</typeparam>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionTyp`1.GetExceptionType(`0)">
+            <summary>
+            Statische Methode um den <see cref="T:System.Type"/> einer <see cref="T:System.Exception"/> zurück zu geben.
+            </summary>
+            <param name="ex"><see cref="T:System.Exception"/> von der der <see cref="T:System.Type"/> zurück gegeben werden soll.</param>
+            <returns>>Der <see cref="T:System.Type"/> der übergebenen <see cref="T:System.Exception"/>.</returns>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionTyp`1.ExceptionType">
+            <summary>
+            Gibt den Exception-Typ zurück.
+            </summary>
+            <value>Der Exception-Typ</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionTyp`1.Type">
+            <summary>
+            Gibt den <see cref="T:System.Type"/> der übergebenen <see cref="T:System.Exception"/> zurück.
+            </summary>
+            <value>Der <see cref="T:System.Type"/> der übergebenen <see cref="T:System.Exception"/>.</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionTyp`1.#ctor(`0)">
+            <summary>
+            Konstruktor mit Angabe der zu untersuchenden <see cref="T:System.Exception"/>.
+            </summary>
+            <param name="ex">Der zu untersuchende Exception-Type.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionTyp`1.#ctor(System.Type)">
+            <summary>
+            Konstruktor mit sofortiger Angabe des Types.
+            </summary>
+            <param name="et">Zu verwendender Type</param>
+            <exception cref="T:ahbsd.lib.ExceptionHandable.TypeException`1">Wenn der übergebene <see cref="T:System.Type"/> im Parameter er nicht ET als vererbte Klasse enthält.</exception>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionTyp">
+            <summary>
+            Klasse, die den Typ einer Exception zurück gibt.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionTyp.#ctor(System.Exception)">
+            <summary>
+            Konstruktor mit Angabe der zu untersuchenden <see cref="T:System.Exception"/>.
+            </summary>
+            <param name="ex">Die zu untersuchende <see cref="T:System.Exception"/>.</param>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ExceptionSenderControl">
+            <summary>
+            Control für Exception Sender
+            </summary>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.escNr">
+            <summary>
+            Die Anzahl aller aktuellen <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionSenderControl"/>s.
+            </summary>
+            <remarks>Wird vor Allem zur Automatischen Namens-Gebung benötigt.</remarks>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.detailBox">
+            <summary>
+            <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Details"/> als Variable, damit Changes ein Event auslösen können.
+            </summary>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.sender">
+            <summary>
+            Das <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Sender"/>-<see cref="T:System.Object"/> als Variable, damit Changes <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Values"/> leert und ein Event auslösen kann.
+            </summary>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.exceptionControls">
+            <summary>
+            Beinhaltete <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionControl"/>s.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.OnDetailsChanged">
+            <summary>
+            Tritt auf, wenn <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Details"/> geändert wurde.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.OnSenderChanged">
+            <summary>
+            Tritt auf, wenn <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Sender"/> geändert wurde.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Sender">
+            <summary>
+            Gibt das sendende <see cref="T:System.Object"/> der Exceptions zurück oder setzt es.
+            </summary>
+            <value>Das sendende <see cref="T:System.Object"/> der Exceptions.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Values">
+            <summary>
+            Gibt das <see cref="T:System.Collections.Generic.IDictionary`2"/>, dass alle aufgetretene Exceptions des <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Sender"/>-Objekts beinhaltet zurück oder setzt es.
+            </summary>
+            <value>Das <see cref="T:System.Collections.Generic.IDictionary`2"/>, dass alle aufgetretene Exceptions des <see cref="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Sender"/>-Objekts beinhaltet.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Details">
+            <summary>
+            Gibt die Textbox mit den Details zurück oder setzt sie.
+            </summary>
+            <value>Die Textbox mit den Details.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.MaxY">
+            <summary>
+            Gibt den maximalen Y-Wert zurück.
+            </summary>
+            <value>Der maximale Y-Wert.</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.#cctor">
+            <summary>
+            Statischer Konstruktor.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.#ctor">
+            <summary>
+            Konstruktor ohne Parameter
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.#ctor(System.Object,System.Collections.Generic.IDictionary{System.DateTime,System.Exception})">
+            <summary>
+            Konstruktor mit Angabe des sendenden Objekts und den dazugehörigen Exceptions.
+            </summary>
+            <param name="sender">Das sendende Objekt.</param>
+            <param name="values">Die dazugehörigen Exceptions.</param>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.components">
+            <summary> 
+            Erforderliche Designervariable.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.Dispose(System.Boolean)">
+            <summary> 
+            Verwendete Ressourcen bereinigen.
+            </summary>
+            <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.ExceptionSenderControl.InitializeComponent">
+            <summary> 
+            Erforderliche Methode für die Designerunterstützung. 
+            Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions">
+            <summary>
+            Formular für die Anzeige von gefangenenen <see cref="T:System.Exception"/>s
+            </summary>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions._ce">
+            <summary>
+            Die gefangenen Exceptions.
+            </summary>
+            <remarks>Siehe <see cref="T:ahbsd.lib.ExceptionHandable.CaughtExceptions"/>.</remarks>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.exceptionSenders">
+            <summary>
+            Liste der Exception-Sender
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.CE">
+            <summary>
+            Gibt die gefangenen Exceptions zurück oder setzt sie.
+            </summary>
+            <value>Die gefangenen Exceptions.</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.#ctor">
+            <summary>
+            Konstruktor ohne Parameter
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.#ctor(ahbsd.lib.ExceptionHandable.ICaughtExceptions)">
+            <summary>
+            Konstruktor mit der Übergabe von gefangenen Exceptions.
+            </summary>
+            <param name="ce">Die gefangenen Exceptions.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.FrmCaughtExceptions_Load(System.Object,System.EventArgs)">
+            <summary>
+            Laden von Daten
+            </summary>
+            <param name="sender">Sendendes Objekt.</param>
+            <param name="e">Event-Argumente.</param>
+        </member>
+        <member name="F:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.FrmCaughtExceptions.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionControl">
+            <summary>
+            Interface, dass den Aufbau einer ExceptionControl deklariert.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionControl.Details">
+            <summary>
+            Gibt die Textbox mit den Details zurück.
+            </summary>
+            <value>Die Textbox mit den Details.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionControl.Sender">
+            <summary>
+            Gibt den Sender zurück.
+            </summary>
+            <value>Der Sender</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionControl.Value">
+            <summary>
+            Gibt die Exception und die Auftritt-Zeit zurück.
+            </summary>
+            <value>Die Exception und die Auftritt-Zeit.</value>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.IExceptionSenderControl">
+            <summary>
+            Interface für ExceptionSenderControl.
+            </summary>
+            <remarks>z.B.: <see cref="T:ahbsd.lib.ExceptionHandable.ExceptionSenderControl"/>.</remarks>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Details">
+            <summary>
+            Gibt die Textbox mit den Details zurück oder setzt sie.
+            </summary>
+            <value>Die Textbox mit den Details.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Sender">
+            <summary>
+            Gibt das sendende <see cref="T:System.Object"/> der Exceptions zurück oder setzt es.
+            </summary>
+            <value>Das sendende <see cref="T:System.Object"/> der Exceptions.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Values">
+            <summary>
+            Gibt das <see cref="T:System.Collections.Generic.IDictionary`2"/>, dass alle aufgetretene Exceptions des <see cref="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Sender"/>-Objekts beinhaltet zurück oder setzt es.
+            </summary>
+            <value>Das <see cref="T:System.Collections.Generic.IDictionary`2"/>, dass alle aufgetretene Exceptions des <see cref="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Sender"/>-Objekts beinhaltet.</value>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.OnDetailsChanged">
+            <summary>
+            Tritt auf, wenn <see cref="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Details"/> geändert wurde.
+            </summary>
+        </member>
+        <member name="E:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.OnSenderChanged">
+            <summary>
+            Tritt auf, wenn <see cref="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.Sender"/> geändert wurde.
+            </summary>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.IExceptionSenderControl.MaxY">
+            <summary>
+            Gibt den maximalen Y-Wert zurück.
+            </summary>
+            <value>Der maximale Y-Wert.</value>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.ITypeException`1">
+            <summary>
+            Interface für <see cref="T:System.Type"/>-Spezifische Exceptions.
+            </summary>
+            <typeparam name="T">Soll-Type</typeparam>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ITypeException`1.TypeArray">
+            <summary>
+            Gibt den Array der vorhandenen Typen zurück.
+            </summary>
+            <value>Ein Array der vorhandenen Typen</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ITypeException`1.PlanedType">
+            <summary>
+            Gibt den Soll-<see cref="T:System.Type"/> zurück.
+            </summary>
+            <value>Der Soll-Type.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.ITypeException`1.Value">
+            <summary>
+            Gibt den übergebenen <see cref="T:System.Type"/> zurück.
+            </summary>
+            <value>Der übergebene Type.</value>
+        </member>
+        <member name="T:ahbsd.lib.ExceptionHandable.TypeException`1">
+            <summary>
+            Klasse zur Implementierung von <see cref="T:ahbsd.lib.ExceptionHandable.ITypeException`1"/>.
+            </summary>
+            <typeparam name="T">Der Soll-<see cref="T:System.Type"/>.</typeparam>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.TypeException`1.PlanedType">
+            <summary>
+            Gibt den Soll-<see cref="T:System.Type"/> zurück.
+            </summary>
+            <value>Der Soll-Type.</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.TypeException`1.TypeArray">
+            <summary>
+            Gibt den Array der vorhandenen Typen zurück.
+            </summary>
+            <value>Ein Array der vorhandenen Typen</value>
+        </member>
+        <member name="P:ahbsd.lib.ExceptionHandable.TypeException`1.Value">
+            <summary>
+            Gibt den übergebenen <see cref="T:System.Type"/> zurück.
+            </summary>
+            <value>Der übergebene Type.</value>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.TypeException`1.#ctor(System.Type)">
+            <summary>
+            Konstruktor mit Übergabe eines unpassenden <see cref="T:System.Type"/>.
+            </summary>
+            <param name="type">Unpassender Type</param>
+        </member>
+        <member name="M:ahbsd.lib.ExceptionHandable.TypeException`1.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Füllt eine <see cref="T:System.Runtime.Serialization.SerializationInfo"/> mit den Daten auf, die zum Serialisieren des Zielobjekts erforderlich sind.
+            </summary>
+            <param name="info">Die mit Daten zu füllende <see cref="T:System.Runtime.Serialization.SerializationInfo"/>.</param>
+            <param name="context">Das Ziel (siehe <see cref="T:System.Runtime.Serialization.StreamingContext"/>) dieser Serialisierung.</param>
+        </member>
+        <member name="T:ahbsd.lib.EventArgs`1">
+            <summary>
+            Generic event arguments.
+            </summary>
+            <typeparam name="T">The given class.</typeparam>
+        </member>
+        <member name="M:ahbsd.lib.EventArgs`1.#ctor(`0)">
+            <summary>
+            Constructor with a value of type T.
+            </summary>
+            <param name="value">The given value.</param>
+        </member>
+        <member name="P:ahbsd.lib.EventArgs`1.Value">
+            <summary>
+            Returns the given value.
+            </summary>
+            <value>The given Value.</value>
+        </member>
+        <member name="T:ahbsd.lib.ChangeEventArgs`1">
+            <summary>
+            Generic event argument for changing values.
+            </summary>
+            <typeparam name="T">The given class.</typeparam>
+        </member>
+        <member name="M:ahbsd.lib.ChangeEventArgs`1.#ctor(`0,`0)">
+            <summary>
+            Constructor withe the old and new value.
+            </summary>
+            <param name="oldV">The old value.</param>
+            <param name="newV">The new value.</param>
+        </member>
+        <member name="P:ahbsd.lib.ChangeEventArgs`1.OldValue">
+            <summary>
+            Returns the old value.
+            </summary>
+            <value>The old value.</value>
+        </member>
+        <member name="P:ahbsd.lib.ChangeEventArgs`1.NewValue">
+            <summary>
+            Returns the new value.
+            </summary>
+            <value>The new value.</value>
+        </member>
+        <member name="T:ahbsd.lib.ChangeEventArgs">
+            <summary>
+            Event argument for changing values.
+            </summary>
+        </member>
+        <member name="M:ahbsd.lib.ChangeEventArgs.#ctor(System.Object,System.Object)">
+            <summary>
+            Constructor withe the old and new value.
+            </summary>
+            <param name="oldV">The old value.</param>
+            <param name="newV">The new value.</param>
+        </member>
+        <member name="T:ahbsd.lib.ChangeEventHandler`1">
+            <summary>
+            An EventHandler for changing values.
+            </summary>
+            <typeparam name="T">The given class.</typeparam>
+            <param name="sender">The sending object.</param>
+            <param name="e">The changing value.</param>
+            <example>
+            Usable e.g. for changing value events:
+            public event ChangeEventHandler{string} OnStringValueChange;
+            </example>
+        </member>
+        <member name="T:ahbsd.lib.ChangeEventHandler">
+            <summary>
+            An EventHandler for changing values.
+            </summary>
+            <param name="sender">The sending object.</param>
+            <param name="e">The changing value.</param>
+            <example>
+            Usable e.g. for changing value events:
+            public event ChangeEventHandler OnValueChange;
+            </example>
+        </member>
+        <member name="T:ahbsd.lib.IChangeEventArgs`1">
+            <summary>
+            Interface for event arguments of changed values.
+            </summary>
+            <typeparam name="T">Given class</typeparam>
+        </member>
+        <member name="P:ahbsd.lib.IChangeEventArgs`1.OldValue">
+            <summary>
+            Returns the old value.
+            </summary>
+            <value>The old value.</value>
+        </member>
+        <member name="P:ahbsd.lib.IChangeEventArgs`1.NewValue">
+            <summary>
+            Returns the new value.
+            </summary>
+            <value>The new value.</value>
+        </member>
+        <member name="T:ahbsd.lib.IChangeEventArgs">
+            <summary>
+            Interface for event arguments of changed values.
+            </summary>
+        </member>
+    </members>
+</doc>
